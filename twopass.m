@@ -1,6 +1,8 @@
+function output=twopass(y,phi,n,m,sample)
 T=1:n;
 T_round1=[];
-w=find(y==1)';
+T_round2=[];
+i=1;
 while i<=m
     if y(i)==0
         for j=find(phi(i,:)==1)
@@ -9,7 +11,6 @@ while i<=m
     else
         if numel(find(phi(i,:)==1))==1
             T_round1=[T_round1 i];
-            w=w(w~=i);
         end
     end
     i=i+1;
@@ -17,19 +18,11 @@ end
 for i=T_round1
     T=T(T~=i);
 end
-while ~isempty(w)
-    j=[];
-    for i=1:n
-        temp_w=w;
-        for k=find(phi(:,i)==1)'
-            temp_w=temp_w(temp_w~=k);
-        end
-        j=[j numel(temp_w)];
+for i=T
+    if find(sample==i)
+        T_round2=[T_round2 i];
     end
-    j=find(j==min(j),1,'first');
-    T_round1=[T_round1 j];
-    T=T(T~=j);
-    for i=find(phi(:,j)==1)'
-        w=w(w~=i);
-    end
+end
+output=[T_round1 T_round2];
+output=sort(output);
 end
