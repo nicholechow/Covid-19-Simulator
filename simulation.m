@@ -1,5 +1,6 @@
 clear all
 close all
+
 human=200;
 sample.x=rand(human,1);
 sample.y=rand(human,1);
@@ -7,14 +8,29 @@ sample.u=(randi([-1 0],human,1)*2+1).*rand(human,1);
 sample.v=(randi([-1 0],human,1)*2+1).*rand(human,1);
 sample.sick=0*eye(human,1);
 sample.sick_time=0*eye(human,1);
+sample.status=0*eye(human,1);
+stay_at_home=true;
+testing=false;
 dt=0.02;
 i=0;
 death_rate=0.02;
+
 temp=randi([1 human],1);
 sample.sick(temp)=1; %Intorducing a random sick
-vaccination_ratio=0.6;
-
-while ~isempty(find(sample.sick==1))
+vaccination_ratio=1;
+for ii=1:human
+    if sample.sick(ii)~=1 && rand<=vaccination_ratio
+        sample.sick(ii)=2;
+    end
+end
+if stay_at_home
+    for ii=1:human
+        if rand<=0.8 && sample.sick(ii)~=1
+            sample.status(ii)=1;
+        end
+    end
+end
+while ~isempty(find(sample.sick==1)) || dt*i==20
     if i == 0
         for k = 1 : human
             hold on;
@@ -34,12 +50,12 @@ while ~isempty(find(sample.sick==1))
     else
         h = findobj(gca,'Type','line');
         for k=1:human
-            if sample.sick(k)~=3
-                x=sample.x(k)+sample.u(k)*dt;
-                y=sample.y(k)+sample.v(k)*dt;
-            else
+            if sample.sick(k)==3 || sample.status(k)==1
                 x=sample.x(k);
                 y=sample.y(k);
+            else
+                x=sample.x(k)+sample.u(k)*dt;
+                y=sample.y(k)+sample.v(k)*dt;
             end
             if x > 1-dt
                 sample.x(k) = sample.x(k)*(1-dt);
@@ -67,29 +83,40 @@ while ~isempty(find(sample.sick==1))
                     end
                 end
             end
-            
+            %Death or Recover
             for ii=1:human
-                if dt*i-sample.sick_time(ii)==0.5 && sample.sick(ii)==1 && dt*i>=1
+                if dt*i-sample.sick_time(ii)>=1 && sample.sick(ii)==1 && i>=30
                     if rand<=death_rate
                         sample.sick(ii)=3;
                     else
                         sample.sick(ii)=2;
                     end
-                end 
+                end
             end
-            
+            if sample.status(k)==1
+                sign='x';
+                fontsize=12;
+            else
+                sign='.';
+                fontsize=20;
+            end
             switch sample.sick(k)
                 case 0 %Healthy
-                    set(h(k),'XData',x,'YData',y,'Color','b')
+                    set(h(k),'XData',x,'YData',y,'Color','b','Marker',sign,'MarkerSize',fontsize)
                 case 1 %Sick
-                    set(h(k),'XData',x,'YData',y,'Color','r')
+                    set(h(k),'XData',x,'YData',y,'Color','r','Marker',sign,'MarkerSize',fontsize)
                 case 2 %Recovered
-                    set(h(k),'XData',x,'YData',y,'Color','g')
+                    set(h(k),'XData',x,'YData',y,'Color','g','Marker',sign,'MarkerSize',fontsize)
                 case 3 %Dead
-                    set(h(k),'XData',x,'YData',y,'Color','k')
+                    set(h(k),'XData',x,'YData',y,'Color','k','Marker',sign,'MarkerSize',fontsize)
             end
         end
         drawnow
     end
     i=i+1;
+    record.healthy(i)=numel(find(sample.sick==0));
+    record.sick(i)=numel(find(sample.sick==1));
+    record.recovered(i)=numel(find(sample.sick==2));
+    record.dead(i)=numel(find(sample.sick==3));
+    
 end
