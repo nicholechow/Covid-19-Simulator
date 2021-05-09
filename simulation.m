@@ -7,7 +7,6 @@ sample.u=(randi([-1 0],human,1)*2+1).*rand(human,1);
 sample.v=(randi([-1 0],human,1)*2+1).*rand(human,1);
 sample.sick=0*eye(human,1);
 sample.sick_time=0*eye(human,1);
-sample.
 dt=0.02;
 i=0;
 death_rate=0.02;
@@ -82,7 +81,7 @@ while ~isempty(find(sample.sick==1))
                 case 0 %Healthy
                     set(h(k),'XData',x,'YData',y,'Color','b')
                 case 1 %Sick
-                    set(h(k),'XData',x,'YData',y,'Color','r','Marker')
+                    set(h(k),'XData',x,'YData',y,'Color','r')
                 case 2 %Recovered
                     set(h(k),'XData',x,'YData',y,'Color','g')
                 case 3 %Dead
