@@ -9,7 +9,7 @@ sample.v=(randi([-1 0],human,1)*2+1).*rand(human,1);
 sample.sick=0*eye(human,1);
 sample.sick_time=0*eye(human,1);
 sample.status=0*eye(human,1);
-stay_at_home=true;
+stay_at_home=false;
 testing=false;
 dt=0.02;
 i=0;
@@ -17,7 +17,7 @@ death_rate=0.02;
 
 temp=randi([1 human],1);
 sample.sick(temp)=1; %Intorducing a random sick
-vaccination_ratio=1;
+vaccination_ratio=0;
 for ii=1:human
     if sample.sick(ii)~=1 && rand<=vaccination_ratio
         sample.sick(ii)=2;
@@ -118,5 +118,4 @@ while ~isempty(find(sample.sick==1)) || dt*i==20
     record.sick(i)=numel(find(sample.sick==1));
     record.recovered(i)=numel(find(sample.sick==2));
     record.dead(i)=numel(find(sample.sick==3));
-    
 end
