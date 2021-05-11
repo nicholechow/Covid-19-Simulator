@@ -1,7 +1,7 @@
 # Covid-19-Pool-Testing
 This application is a simulator for Covid-19 spreading with different option to prevent further spread of the disease including pool-testing, vaccination ratio, stay at home option with different percentage. There are also settings for different sample size in the simulator to simulate different sizes of cities. There is also a SIR model of the current simulation. 
 
-##Pre-request
+## Pre-request
 A decent computer 
 
 ## Getting Started
