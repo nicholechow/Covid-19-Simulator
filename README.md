@@ -3,17 +3,17 @@ This application is a simulator for Covid-19 spreading with different option to 
 
 Pre-request: a decent computer
 
-* Getting Started
+## Getting Started
 1. Download Matlab on your computer
 2. Open simulator_exported.m
 3. Run it by pressing the run button
 4. Choose the option that you want above the "Simulation" button
 5. Press the "Simulation" button 
 
-* Warning 
+## Warning 
 + To run the simulation smoothly, the mouse should be stationary and no other memory consuming application should be running in the background
 + User should not close the window during the simulation
 
-* Tools Used 
+## Tools Used 
 + MATLAB
 + MATLAB bulit-in AppDesigner
