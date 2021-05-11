@@ -15,12 +15,12 @@ while i<=m
     end
     i=i+1;
 end
-for i=T_round1
-    T=T(T~=i);
+for j=T_round1
+    T=T(T~=j);
 end
-for i=T
-    if find(sample==i)
-        T_round2=[T_round2 i];
+for k=T
+    if sample(k)==1
+        T_round2=[T_round2 k];
     end
 end
 output=[T_round1 T_round2];

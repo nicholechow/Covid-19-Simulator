@@ -1,5 +1,5 @@
 function phi=randompooling(n,m,k,p)
-phi=0;
+phi=eye(m,n);
 alpha=0;
 max_iteration=100;
 for i=1:n

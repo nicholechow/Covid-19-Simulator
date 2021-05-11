@@ -17,7 +17,7 @@ death_rate=0.02;
 
 temp=randi([1 human],1);
 sample.sick(temp)=1; %Intorducing a random sick
-vaccination_ratio=0;
+vaccination_ratio=0.01;
 for ii=1:human
     if sample.sick(ii)~=1 && rand<=vaccination_ratio
         sample.sick(ii)=2;
