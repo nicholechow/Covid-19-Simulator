@@ -84,7 +84,7 @@ classdef simulator_exported < matlab.apps.AppBase
                     sample.sick(ii)=2;
                 end
             end
-            if numel(app.StayAtHomeSwitch.Value)== 2
+            if isequal(app.StayAtHomeSwitch.Value,'On')
                 for ii=1:value
                     if rand<=app.AtHomeRationSlider.Value/100 && sample.sick(ii)~=1
                         sample.status(ii)=1;
@@ -201,7 +201,7 @@ classdef simulator_exported < matlab.apps.AppBase
                 app.MaxConcurrentlySickEditField.Value=max(record.sick);
                 app.QuarantineEditField.Value=numel(find(sample.status==2));
                 
-                if i==round(7000*dt)
+                if i==round(7000*dt) && ~isequal(app.PoolTestingDropDown.Value,'None')
                     [output,T_round1]=main(sample.sick);
                     if isequal(app.PoolTestingDropDown.Value,'Two-pass Testing')
                         for ii=output

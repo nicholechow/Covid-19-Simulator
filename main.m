@@ -20,6 +20,9 @@ for i=1:double(test_no)
         seq=seq(n)+1:numel(sample_input);
     end
     clear phi
+    if i==double(test_no)
+        n=numel(seq);
+    end
     phi=randompooling(n,m,k,p);
     y=pooltest(sample_input(seq),n,m,phi);
     output=[output seq(twopass(y,phi,n,m,sample_input(seq)))];
