@@ -36,4 +36,11 @@ while ~isempty(w)
     end
 end
 T_round1=sort(T_round1);
+temp=[];
+for i=1:numel(T_round1)
+    if T_round1(i)<=n
+        temp=[temp T_round1(i)];
+    end 
+end
+T_round1=temp;
 end
