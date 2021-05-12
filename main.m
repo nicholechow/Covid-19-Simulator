@@ -14,15 +14,14 @@ end
 
 i=1;
 for i=1:double(test_no)
-    if i<double(test_no)
-        seq=(1:n)+(i-1)*n;
+    if i==double(test_no)
+        seq=numel(sample_input)-double(Q)+1:numel(sample_input);
+        n=numel(seq);
     else
-        seq=seq(n)+1:numel(sample_input);
+        seq=(1:n)+(i-1)*n;
+        n=24;
     end
     clear phi
-    if i==double(test_no)
-        n=numel(seq);
-    end
     phi=randompooling(n,m,k,p);
     y=pooltest(sample_input(seq),n,m,phi);
     output=[output seq(twopass(y,phi,n,m,sample_input(seq)))];

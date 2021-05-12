@@ -64,8 +64,11 @@ classdef simulator_exported < matlab.apps.AppBase
         
         % Button pushed function: SimulationButton
         function SimulationButtonPushed(app, event)
+            clear sample
+            close all
             value=round(app.SampleSizeSlider.Value);
             cla(app.SimulationUIAxes)
+            cla(app.UIAxes)
             sample.x=rand(value,1);
             sample.y=rand(value,1);
             sample.u=(randi([-1 0],value,1)*2+1).*rand(value,1);
@@ -93,6 +96,7 @@ classdef simulator_exported < matlab.apps.AppBase
             end
             
             while ~isempty(find(sample.sick==1))
+                
                 if i == 0
                     for k = 1 : value
                         hold(app.SimulationUIAxes,'on');
@@ -180,14 +184,12 @@ classdef simulator_exported < matlab.apps.AppBase
                     end
                     drawnow limitrate
                 end
-                
                 i=i+1;
                 record.healthy(i)=numel(find(sample.sick==0));
                 record.sick(i)=numel(find(sample.sick==1));
                 record.recovered(i)=numel(find(sample.sick==2));
                 record.dead(i)=numel(find(sample.sick==3));
                 
-                cla(app.UIAxes)
                 hold(app.UIAxes,'on');
                 plot(app.UIAxes,record.healthy,'b')
                 plot(app.UIAxes,record.sick,'r')
