@@ -17,7 +17,7 @@ A decent computer
 ## Warning 
 + To run the simulation smoothly, the mouse should be stationary and no other memory consuming application should be running in the background.
 + The slider and inputs will not work after the simulation started. Input should be done before pressing the simulation button.
-+ User should not close the window during the simulation. It should be closed only after the simulation is over and the particle is not moving anymore. Any error due to close the window before the simulation is over will not be my fault :)
++ User should not close the window during the simulation. It should be closed only after the simulation is over and the particle is not moving anymore. Any error due to close the window before the simulation is over is due to the limtation of MATLAB.
 + MATLAB is not the best language to write a simulator in. There is a very high chance that data will be overlapped if the simulation button is pressed again in the same run. FOR ANOTHER SIMULATION, PLEASE CLOSE THE CURRENT WINDOW AND PRESS RUN AGAIN IN THE M-FILE.
 
 ## Tools Used 
